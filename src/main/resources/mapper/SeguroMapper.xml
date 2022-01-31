@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.SeguroMapper">
+
+    <resultMap id="SeguroMap" type="Seguro">
+        <result column="folio" property="folio"/>
+        <result column="sucursal" property="codigoSucursal"/>
+        <result column="rut_persona" property="rutPersona"/>
+        <result column="fecha_grabacion" property="fechaGrabacion"/>
+        <result column="codigo_tps" property="codigoTipoSeguro"/>
+        <result column="estado" property="estado"/>
+        <result column="nombre_tipo_seguro" property="nombreTipoSeguro"/>
+        <result column="NOMBRE" property="nombrePersona"/>
+        <result column="TELEFONO" property="telefono"/>
+    </resultMap>
+
+    <select id="queryBucarSegurosRatificarByEstado" statementType="CALLABLE" parameterType="java.util.Map" resultMap="SeguroMap">
+        {
+            call ops$andes.PKG_VIAJE_SEGURO_RATIFICACION.PRC_VIAJE_GET_SEGURO_RATIFICACION_ESTADO
+            (
+                #{N_EPS_ESTADO, javaType=java.lang.String, jdbcType=VARCHAR,mode=IN},
+                #{seguro, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=SeguroMap, mode=OUT},
+                #{codStatus, jdbcType=VARCHAR, javaType=java.lang.String, mode=OUT},
+                #{menStatus, jdbcType=VARCHAR, javaType=java.lang.String, mode=OUT}
+            )
+            }
+    </select>
+
+</mapper>

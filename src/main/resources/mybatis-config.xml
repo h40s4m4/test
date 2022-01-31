@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <environments default="development">
+
+    <!-- archivo properties donde estan los datos de conexion -->
+    <properties resource='application.properties'/>
+
+    <!-- Rutas de los modelos -->
+    <typeAliases>
+        <typeAlias type='com.example.demo.model.Seguro' alias='Seguro'/>
+    </typeAliases>
+
+
+    <environments default="dev">
 
         <!-- Configuracion de Desarrollo -->
         <environment id="dev">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${mybatis.driver}"/>
-                <property name="url" value="${mybatis.url}"/>
-                <property name="username" value="${mybatis.username}"/>
-                <property name="password" value="${mybatis.password}"/>
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="url" value="jdbc:oracle:thin:@//132.240.150.134:1521/MANDESDEV.netlkjqsk.vcnqtlni.oraclevcn.com"/>
+                <property name="username" value="X0ocontr"/>
+                <property name="password" value="X0ocontr19"/>
+
+                <!--                <property name="driver" value="${mybatis.driver}"/>-->
+                <!--                <property name="url" value="${mybatis.url}"/>-->
+                <!--                <property name="username" value="${mybatis.username}"/>-->
+                <!--                <property name="password" value="${mybatis.password}"/>-->
             </dataSource>
         </environment>
 
@@ -18,10 +33,16 @@
         <environment id="prod">
             <transactionManager type="JDBC"/>
             <dataSource type="JNDI">
-                <property name="data_source" value="${mybatis.datasource}"/>
+                <property name="data_source" value="jdbc/seguroVidaFamiliarRatificacion"/>
+                <!--                <property name="data_source" value="${mybatis.datasource}"/>-->
             </dataSource>
         </environment>
 
     </environments>
+
+    <!-- Listado de los Mappers -->
+    <mappers>
+        <mapper resource="mapper/SeguroMapper.xml"/>
+    </mappers>
 
 </configuration>
